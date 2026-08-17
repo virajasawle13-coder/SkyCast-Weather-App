@@ -1,0 +1,45 @@
+
+// ══════════════════════════════════════════════════════════
+//  DOM REFERENCES
+// ══════════════════════════════════════════════════════════
+
+const $ = id => document.getElementById(id);
+const el = {
+    body: document.body,
+    html: document.documentElement,
+    loadingOverlay: $('loading-overlay'),
+    errorCard: $('error-card'),
+    errorMessage: $('error-message'),
+    errorDismiss: $('error-dismiss'),
+    searchInput: $('search-input'),
+    searchBtn: $('search-btn'),
+    suggestionsList: $('suggestions-list'),
+    locationBtn: $('location-btn'),
+    themeToggle: $('theme-toggle'),
+    themeIcon: $('theme-icon'),
+    refreshBtn: $('refresh-btn'),
+    btnCelsius: $('btn-celsius'),
+    btnFahrenheit: $('btn-fahrenheit'),
+    recentSearches: $('recent-searches'),
+    favorites: $('favorites'),
+    weatherContent: $('weather-content'),
+    welcomeState: $('welcome-state'),
+    cityName: $('city-name'),
+    currentDatetime: $('current-datetime'),
+    favBtn: $('fav-btn'),
+    weatherIconMain: $('weather-icon-main'),
+    currentTemp: $('current-temp'),
+    weatherCondition: $('weather-condition'),
+    feelsLike: $('feels-like'),
+    statHumidity: $('stat-humidity'),
+    statWind: $('stat-wind'),
+    statPressure: $('stat-pressure'),
+    statVisibility: $('stat-visibility'),
+    statUV: $('stat-uv'),
+    statSunrise: $('stat-sunrise'),
+    statSunset: $('stat-sunset'),
+    statAQI: $('stat-aqi'),
+    lastUpdated: $('last-updated'),
+    hourlyContainer: $('hourly-container'),
+    dailyContainer: $('daily-container'),
+};

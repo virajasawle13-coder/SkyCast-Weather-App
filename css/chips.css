@@ -1,0 +1,67 @@
+/* ══════════════════════════════════════════════════════════
+   CHIPS (RECENT / FAVORITES)
+══════════════════════════════════════════════════════════ */
+.chips-section {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.9rem;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+  animation: fade-in 0.3s ease both;
+}
+
+.chip:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.chip-remove {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.chip-remove:hover {
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   WEATHER CONTENT AREA
+══════════════════════════════════════════════════════════ */
+.weather-content.hidden {
+  display: none;
+}
+
+.weather-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fade-in 0.5s ease both;
+}

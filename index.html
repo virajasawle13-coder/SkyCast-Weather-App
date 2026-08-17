@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="A premium weather app powered by Open-Meteo — get real-time weather, forecasts, and air quality for any city." />
+  <title>SkyCast — Premium Weather App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+  <link rel="stylesheet" href="css/header.css"/>
+  <link rel="stylesheet" href="css/search.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/chips.css"/>
+  <link rel="stylesheet" href="css/weather.css"/>
+  <link rel="stylesheet" href="css/forecast.css"/>
+  <link rel="stylesheet" href="css/welcome.css"/>
+  <link rel="stylesheet" href="css/buttons.css"/>
+  <link rel="stylesheet" href="css/loading.css"/>
+  <link rel="stylesheet" href="css/footer.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+
+<body class="weather-default">
+
+  <!-- ─── LOADING OVERLAY ─── -->
+  <div id="loading-overlay" class="loading-overlay hidden" role="status" aria-live="polite"
+    aria-label="Loading weather data">
+    <div class="spinner-ring"></div>
+    <p class="loading-text">Fetching weather…</p>
+  </div>
+
+  <!-- ─── ERROR CARD ─── -->
+  <div id="error-card" class="error-card hidden" role="alert" aria-live="assertive">
+    <span class="error-icon">⚠️</span>
+    <p id="error-message" class="error-message"></p>
+    <button id="error-dismiss" class="btn-ghost" aria-label="Dismiss error">Dismiss</button>
+  </div>
+
+  <!-- ─── APP SHELL ─── -->
+  <div class="app-shell">
+
+    <!-- ── HEADER ── -->
+    <header class="app-header" role="banner">
+      <div class="header-brand">
+        <span class="brand-icon" aria-hidden="true">🌤</span>
+        <h1 class="brand-name">SkyCast</h1>
+      </div>
+
+      <div class="header-controls">
+        <!-- Unit Toggle -->
+        <div class="unit-toggle" role="group" aria-label="Temperature unit">
+          <button id="btn-celsius" class="unit-btn active" data-unit="C" aria-pressed="true">°C</button>
+          <button id="btn-fahrenheit" class="unit-btn" data-unit="F" aria-pressed="false">°F</button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
+          <span id="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+
+        <!-- Refresh -->
+        <button id="refresh-btn" class="icon-btn" aria-label="Refresh weather data" title="Refresh">
+          <span aria-hidden="true">🔄</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── SEARCH BAR ── -->
+    <section class="search-section" aria-label="City search">
+      <div class="search-wrapper">
+        <div class="search-input-group" role="search">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="search-input" class="search-input" placeholder="Search city…" autocomplete="off"
+            aria-label="Search for a city" aria-autocomplete="list" aria-controls="suggestions-list"
+            aria-haspopup="listbox" />
+          <button id="search-btn" class="search-btn" aria-label="Search">Search</button>
+        </div>
+        <ul id="suggestions-list" class="suggestions-list hidden" role="listbox" aria-label="City suggestions"></ul>
+      </div>
+
+      <button id="location-btn" class="location-btn btn-ripple" aria-label="Use my current location">
+        <span aria-hidden="true">📍</span> Use My Location
+      </button>
+    </section>
+
+    <!-- ── RECENT + FAVORITES ── -->
+    <section class="chips-section" aria-label="Recent searches and favorites">
+      <div id="recent-searches" class="chip-group" aria-label="Recent searches"></div>
+      <div id="favorites" class="chip-group" aria-label="Favorite cities"></div>
+    </section>
+
+    <!-- ── MAIN WEATHER CONTENT ── -->
+    <main id="weather-content" class="weather-content hidden" aria-label="Weather information">
+
+      <!-- Current Weather Card -->
+      <section class="current-card glass-card" aria-label="Current weather">
+        <div class="current-top">
+          <div class="current-location-info">
+            <h2 id="city-name" class="city-name">—</h2>
+            <p id="current-datetime" class="current-datetime">—</p>
+          </div>
+          <button id="fav-btn" class="icon-btn fav-btn" aria-label="Add to favorites" title="Favorite">⭐</button>
+        </div>
+
+        <div class="current-main">
+          <div class="current-weather-primary">
+            <span id="weather-icon-main" class="weather-icon-main floating" aria-hidden="true">🌤</span>
+            <div class="temp-block">
+              <span id="current-temp" class="current-temp">—</span>
+              <span class="temp-unit-label">°</span>
+            </div>
+          </div>
+          <div class="current-description">
+            <p id="weather-condition" class="weather-condition">—</p>
+            <p id="feels-like" class="feels-like">Feels like —</p>
+          </div>
+        </div>
+
+        <div class="current-stats" role="list" aria-label="Weather stats">
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">💧</span>
+            <span class="stat-label">Humidity</span>
+            <span id="stat-humidity" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">💨</span>
+            <span class="stat-label">Wind</span>
+            <span id="stat-wind" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">🌡</span>
+            <span class="stat-label">Pressure</span>
+            <span id="stat-pressure" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">👁</span>
+            <span class="stat-label">Visibility</span>
+            <span id="stat-visibility" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">☀️</span>
+            <span class="stat-label">UV Index</span>
+            <span id="stat-uv" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">🌅</span>
+            <span class="stat-label">Sunrise</span>
+            <span id="stat-sunrise" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">🌇</span>
+            <span class="stat-label">Sunset</span>
+            <span id="stat-sunset" class="stat-value">—</span>
+          </div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-icon" aria-hidden="true">🌿</span>
+            <span class="stat-label">AQI</span>
+            <span id="stat-aqi" class="stat-value">—</span>
+          </div>
+        </div>
+
+        <p id="last-updated" class="last-updated" aria-live="polite">Last updated: —</p>
+      </section>
+
+      <!-- Hourly Forecast -->
+      <section class="forecast-section" aria-label="Hourly forecast">
+        <h3 class="section-title">⏱ Hourly Forecast</h3>
+        <div id="hourly-container" class="hourly-container" role="list" aria-label="24-hour forecast"></div>
+      </section>
+
+      <!-- 7-Day Forecast -->
+      <section class="forecast-section" aria-label="7-day forecast">
+        <h3 class="section-title">📅 7-Day Forecast</h3>
+        <div id="daily-container" class="daily-container" role="list" aria-label="7-day forecast"></div>
+      </section>
+
+    </main>
+
+    <!-- ── WELCOME STATE ── -->
+    <div id="welcome-state" class="welcome-state" aria-label="Welcome screen">
+      <span class="welcome-icon floating" aria-hidden="true">🌍</span>
+      <h2 class="welcome-title">Your Weather, Anywhere</h2>
+      <p class="welcome-sub">Search a city or use your location to get started.</p>
+    </div>
+
+    <footer class="app-footer" role="contentinfo">
+      Powered by <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">Open-Meteo</a> &bull;
+      SkyCast 2026
+    </footer>
+
+  </div><!-- end .app-shell -->
+
+  <script src="js/config.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/chips.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/location.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/main.js "></script>
+</body>
+
+</html>
