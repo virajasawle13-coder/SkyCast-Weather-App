@@ -11,7 +11,8 @@
   align-items: center;
   justify-content: center;
   background: rgba(5, 7, 20, 0.78);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   gap: 1rem;
   transition: opacity 0.4s ease, visibility 0.4s ease;
 }
@@ -50,7 +51,8 @@
   background: var(--error-bg);
   border: 1px solid var(--error-border);
   border-radius: var(--radius-md);
-  backdrop-filter: blur(18px);
+ -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   padding: 1rem 1.5rem;
   display: flex;
   align-items: center;

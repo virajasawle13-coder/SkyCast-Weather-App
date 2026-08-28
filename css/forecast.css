@@ -6,7 +6,8 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(20px);
+ -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   padding: 1.25rem;
   animation: slide-up 0.5s ease both;
 }
@@ -26,8 +27,10 @@
   gap: 0.65rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) transparent;
+}
+
+.hourly-container::-webkit-scrollbar{
+  height: 4px;
 }
 
 .hourly-container::-webkit-scrollbar {
