@@ -43,7 +43,8 @@
   border: 1px solid var(--glass-border);
   border-radius: 50px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
+ -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
 }
 
 .unit-btn {
@@ -81,7 +82,8 @@
   font-size: 1.1rem;
   cursor: pointer;
   transition: background var(--transition), transform var(--transition);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   color: inherit;
 }
 
